@@ -1,0 +1,18 @@
+meta {
+  name: login_route
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5000/api/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "username": "bruno_admin",
+      "password": "admin13"
+  }
+}

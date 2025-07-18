@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "now-store",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

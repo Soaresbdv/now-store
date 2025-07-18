@@ -1,0 +1,19 @@
+meta {
+  name: register_route
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:5000/api/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "username": "bruno_admin",
+      "email": "bruno@admin.com",
+      "password": "admin123"
+  }
+}
