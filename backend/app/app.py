@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import create_access_token
-from app.models.user import User
-from app import db
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from backend import db  
+from .models.user import User 
+from .models.products import Product
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -51,3 +52,32 @@ def login():
             'username': user.username
         }
     }), 200
+
+@auth_bp.route('/products_inside', methods=['POST'])
+@jwt_required()
+def add_product():
+    data = request.get_json()
+    
+    required_fields = ['name', 'category']
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Campos obrigatórios faltando"}), 400
+    
+    try:
+        new_product = Product(
+            name=data['name'],
+            description=data.get('description', ''),
+            category=data['category'],
+            color=data.get('color'),
+            model=data.get('model'),
+            user_id=get_jwt_identity() 
+        )
+        db.session.add(new_product)
+        db.session.commit()
+        
+        return jsonify({
+            "message": "Produto adicionado!",
+            "product_id": new_product.id
+        }), 201
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

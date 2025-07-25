@@ -1,8 +1,9 @@
-from app import create_app, db
-from flask_migrate import Migrate
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent)) 
 
+from backend import create_app
 app = create_app()
-migrate = Migrate(app, db)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)

@@ -4,14 +4,33 @@
         ├── app/
             ├── __init__.py
             ├── app.py
+            ├── commands.py
             ├── models/
                 ├── __init__.py
+                ├── products.py
                 ├── user.py
             ├── utils/
                 ├── __init__.py
                 ├── database.py
                 ├── security.py
+        ├── backend.egg-info/
+            ├── dependency_links.txt
+            ├── PKG-INFO
+            ├── requires.txt
+            ├── SOURCES.txt
+            ├── top_level.txt
+        ├── migrations/
+            ├── alembic.ini
+            ├── env.py
+            ├── README
+            ├── script.py.mako
+            ├── versions/
         ├── requirements.txt
         ├── run.py
+        ├── setup.py
+    ├── now-store/
+        ├── bruno.json
+        ├── login_route.bru
+        ├── register_route.bru
     ├── project_tree.txt
     ├── tree.py
