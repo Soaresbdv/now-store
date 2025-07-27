@@ -5,11 +5,16 @@ meta {
 }
 
 get {
-  url: http://localhost:5000/api/products/1
+  url: http://localhost:5000/api/products?category_id=1&min_price=10000
   body: none
   auth: bearer
 }
 
+params:query {
+  category_id: 1
+  min_price: 10000
+}
+
 auth:bearer {
-  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MzU3MzMzMiwianRpIjoiNzkxMTc4NzItNTQ3Mi00NTdlLTkwZTAtYTZiZDA5MzNhODAzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MiwibmJmIjoxNzUzNTczMzMyLCJleHAiOjE3NTM1NzQyMzJ9.PECTDyM3b1H51VDjcof7GhAYq2cjmRCaJtZ9Nryqrl8
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MzY1MjgzMiwianRpIjoiYzU5OWY0NTUtYjNjZi00NDhiLWIxZWUtYTEwOWUyNGQ0NTMzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzUzNjUyODMyLCJleHAiOjE3NTM2NTM3MzJ9.jkcMAhbFwLz4hphzLAtdVnmBadaNxyLN4XtZnf9YdQE
 }
