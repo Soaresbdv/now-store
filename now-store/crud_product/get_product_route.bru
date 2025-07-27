@@ -1,0 +1,20 @@
+meta {
+  name: get_product_route
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:5000/api/my_products?page=1&per_page=3
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 1
+  per_page: 3
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MzU3NDMxOSwianRpIjoiNmE5OWU1YTAtOTcyYi00MDRjLThjMzktZjdlYWIwMmY0YmQwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzUzNTc0MzE5LCJleHAiOjE3NTM1NzUyMTl9.awNJFR4xMHnrJxlfAFFlOEN9c9JeGkCp_tY8Hukixs8
+}

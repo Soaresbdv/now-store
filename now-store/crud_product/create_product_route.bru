@@ -1,0 +1,23 @@
+meta {
+  name: create_product_route
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:5000/api/products
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MzU3MzMzMiwianRpIjoiNzkxMTc4NzItNTQ3Mi00NTdlLTkwZTAtYTZiZDA5MzNhODAzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MiwibmJmIjoxNzUzNTczMzMyLCJleHAiOjE3NTM1NzQyMzJ9.PECTDyM3b1H51VDjcof7GhAYq2cjmRCaJtZ9Nryqrl8
+}
+
+body:json {
+  {
+    "name":"Smartphone", 
+    "price":999.99, 
+    "category":"Eletrônicos"
+  }
+}
