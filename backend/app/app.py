@@ -6,6 +6,8 @@ from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
 from .models.user import User 
 from .models.products import Product
 from backend.app.models import Category
+from backend.app.utils.decorators import admin_required 
+
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -23,8 +25,11 @@ def register():
         return jsonify({'error': 'Email já cadastrado'}), 400
     
     try:
-        user = User(username=data['username'], email=data['email'])
-        user.set_password(data['password'])
+        user = User(
+        username=data['username'],
+        email=data['email'],
+        password=data['password']
+    )
         db.session.add(user)
         db.session.commit()
         
@@ -228,4 +233,66 @@ def list_products():
                 'total_pages': products_paginated.pages
             }
         }
+    })
+
+# Rota p lisatgem de produtos (ADMIN)
+@auth_bp.route('/admin/products', methods=['GET'])
+@jwt_required()
+@admin_required
+def admin_list_products():
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 20, type=int)
+    
+    products = Product.query.paginate(page=page, per_page=per_page)
+    
+    return jsonify({
+        'products': [p.to_dict() for p in products.items],
+        'total': products.total
+    })
+
+# Rota p atualizar produtos (ADMIN)
+@auth_bp.route('/admin/products/<int:id>', methods=['PUT'])
+@jwt_required()
+@admin_required
+def admin_update_product(id):
+    product = Product.query.get_or_404(id)
+    data = request.get_json()
+    
+    # Permite alterar até mesmo o dono e categoria
+    updatable_fields = ['name', 'description', 'price', 'category_id', 'user_id']
+    
+    for field in updatable_fields:
+        if field in data:
+            setattr(product, field, data[field])
+    
+    db.session.commit()
+    return jsonify(product.to_dict())
+
+# Rota p deletar produtos (ADMIN)
+@auth_bp.route('/admin/products/<int:id>', methods=['DELETE'])
+@jwt_required()
+@admin_required
+def admin_delete_product(id):
+    product = Product.query.get_or_404(id)
+    db.session.delete(product)
+    db.session.commit()
+    return jsonify({"message": "Produto deletado com sucesso"})
+
+# Rota para promover usuários a admin
+@auth_bp.route('/admin/users/<int:user_id>/toggle-admin', methods=['POST'])
+@jwt_required()
+@admin_required
+def toggle_admin(user_id):
+    target_user = User.query.get_or_404(user_id)
+    current_user = User.query.get(get_jwt_identity())
+    
+    if target_user.id == current_user.id:
+        return jsonify({"error": "Você não pode alterar seu próprio status"}), 400
+    
+    target_user.is_admin = not target_user.is_admin
+    db.session.commit()
+    
+    return jsonify({
+        "message": f"Status de admin alterado para {target_user.username}",
+        "is_admin": target_user.is_admin
     })

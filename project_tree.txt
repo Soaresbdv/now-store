@@ -7,11 +7,14 @@
             ├── commands.py
             ├── models/
                 ├── __init__.py
+                ├── category.py
                 ├── products.py
                 ├── user.py
+            ├── seeds.py
             ├── utils/
                 ├── __init__.py
                 ├── database.py
+                ├── decorators.py
                 ├── security.py
         ├── backend.egg-info/
             ├── dependency_links.txt
@@ -28,9 +31,32 @@
         ├── requirements.txt
         ├── run.py
         ├── setup.py
+    ├── migrations/
+        ├── alembic.ini
+        ├── env.py
+        ├── README
+        ├── script.py.mako
+        ├── versions/
     ├── now-store/
         ├── bruno.json
-        ├── login_route.bru
-        ├── register_route.bru
+        ├── category/
+            ├── folder.bru
+            ├── list_category_route.bru
+        ├── crud_admin_product/
+            ├── delete_product_route.bru
+            ├── folder.bru
+            ├── get_all_product_route.bru
+            ├── update_product_route.bru
+        ├── crud_product/
+            ├── create_product_route.bru
+            ├── delete_product_route.bru
+            ├── folder.bru
+            ├── get_product_route.bru
+            ├── list_product_route.bru
+            ├── update_product_route.bru
+        ├── validator/
+            ├── folder.bru
+            ├── login_route.bru
+            ├── register_route.bru
     ├── project_tree.txt
     ├── tree.py

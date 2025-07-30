@@ -1,0 +1,11 @@
+meta {
+  name: delete_product_route
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:5000/api/admin/products/1
+  body: none
+  auth: inherit
+}
